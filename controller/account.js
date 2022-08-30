@@ -33,7 +33,7 @@ class Account {
             })
         }
     }
-    // 登录
+    // 买家app登录
     async login(request, resposne, next) {
         let loginSql = 'select * from users where username=? and password=?'
         let params = [
@@ -166,6 +166,40 @@ class Account {
             })
         }
     }
+
+
+
+    //以下买家和管理员api接口
+        // 管理员登录
+        async adminlogin(request, resposne, next) {
+            let loginSql = 'select * from admin where username=? and password=?'
+            let params = [
+                request.body.username,
+                request.body.password
+            ]
+            try {
+                let result = await db.exec(loginSql, params)
+                // console.log(result[0])
+                if (result && result.length >= 1) {
+                    resposne.json({
+                        code: 200,
+                        msg: '登录成功',
+                        data: result[0],
+                    })
+                } else {
+                    resposne.json({
+                        code: 201,
+                        msg: '账号或密码错误'
+                    })
+                }
+            } catch (error) {
+                resposne.json({
+                    code: -201,
+                    msg: '服务器异常',
+                    error
+                })
+            }
+        }
 
 }
 

@@ -170,36 +170,98 @@ class Account {
 
 
     //以下买家和管理员api接口
-        // 管理员登录
-        async adminlogin(request, resposne, next) {
-            let loginSql = 'select * from admin where username=? and password=?'
-            let params = [
-                request.body.username,
-                request.body.password
-            ]
-            try {
-                let result = await db.exec(loginSql, params)
-                // console.log(result[0])
-                if (result && result.length >= 1) {
-                    resposne.json({
-                        code: 200,
-                        msg: '登录成功',
-                        data: result[0],
-                    })
-                } else {
-                    resposne.json({
-                        code: 201,
-                        msg: '账号或密码错误'
-                    })
-                }
-            } catch (error) {
+    // 管理员登录
+    async adminlogin(request, resposne, next) {
+        let loginSql = 'select * from admin where username=? and password=?'
+        let params = [
+            request.body.username,
+            request.body.password
+        ]
+        try {
+            let result = await db.exec(loginSql, params)
+            // console.log(result[0])
+            if (result && result.length >= 1) {
                 resposne.json({
-                    code: -201,
-                    msg: '服务器异常',
-                    error
+                    code: 200,
+                    msg: '登录成功',
+                    data: result[0],
+                })
+            } else {
+                resposne.json({
+                    code: 201,
+                    msg: '账号或密码错误'
                 })
             }
+        } catch (error) {
+            resposne.json({
+                code: -201,
+                msg: '服务器异常',
+                error
+            })
         }
+    }
+
+    // 商家登录
+    async merchantlogin(request, resposne, next) {
+        let loginSql = 'select * from merchant where username=? and password=?'
+        let params = [
+            request.body.username,
+            request.body.password
+        ]
+        try {
+            let result = await db.exec(loginSql, params)
+            // console.log(result[0])
+            if (result && result.length >= 1) {
+                resposne.json({
+                    code: 200,
+                    msg: '登录成功',
+                    data: result[0],
+                })
+            } else {
+                resposne.json({
+                    code: 201,
+                    msg: '账号或密码错误'
+                })
+            }
+        } catch (error) {
+            resposne.json({
+                code: -201,
+                msg: '服务器异常',
+                error
+            })
+        }
+    }
+
+    // 商家注册
+    async merregister(request, resposne, next) {
+        let insertSql = 'insert into merchant(`username`,`password`,`shopname`,`idcard`)values(?,?,?,?)'
+        let params = [
+            request.body.username,
+            request.body.password,
+            request.body.shopname,
+            request.body.idcard
+        ]
+        try {
+            let result = await db.exec(insertSql, params)
+            if (result && result.affectedRows >= 1) {
+                resposne.json({
+                    code: 200,
+                    msg: '注册成功',
+                })
+            } else {
+                resposne.json({
+                    code: 201,
+                    msg: '注册失败'
+                })
+            }
+        } catch (error) {
+            resposne.json({
+                code: -201,
+                msg: '服务器异常',
+                error
+            })
+        }
+    }
 
 }
 

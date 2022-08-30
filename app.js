@@ -15,6 +15,7 @@ server.use(express.json())
 // 访问一级路由
 server.use('/account',require('./routers/account'))
 server.use('/mycenter',require('./routers/mycenter'))
+server.use('/shop',require('./routers/shop'))
 
 server.listen(5001,()=>{
     console.log('server up 5001')

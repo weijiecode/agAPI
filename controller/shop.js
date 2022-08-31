@@ -30,6 +30,13 @@ class Shop {
         }
     }
 
+    // 商家发送图片url
+    shopphotouploadurl(request, resposne, next) {
+        const file = request.file
+        file.url = `http://localhost:5001/public/shopphoto/${file.filename}`
+        resposne.json(file.url)
+    }
+
 }
 
 module.exports = new Shop

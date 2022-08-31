@@ -7,6 +7,7 @@ server.use(cors())
 
 // 暴露访问图片资源
 server.use('/public/upload',express.static(__dirname + '/public/upload'))
+server.use('/public/shopphoto',express.static(__dirname + '/public/shopphoto'))
 // server.use('/public/image',express.static(__dirname + '/public/image'))
 
 // 引入中间件

@@ -22,4 +22,8 @@ router.post('/updatestatus',require('../controller/shop').updatestatus)
 router.post('/selectshop',require('../controller/shop').selectshop)
 // 添加商品到购物车
 router.post('/addshopcart',require('../controller/shop').addshopcart)
+// 查询指定用户的购物车数据
+router.post('/selectshopcart',require('../controller/shop').selectshopcart)
+// 支付成功后删除购物车数据
+router.post('/delshopcart',require('../controller/shop').delshopcart)
 module.exports = router

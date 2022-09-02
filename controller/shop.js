@@ -244,6 +244,69 @@ class Shop {
         }
     }
 
+    // 查询指定用户id的购物车
+    async selectshopcart(request, resposne, next) {
+        let selectSql = 'select * from shoppingcart where userid = ?'
+        let params = [
+            request.body.userid
+        ]
+        try {
+
+            let result = await db.exec(selectSql, params)
+            // console.log(result[0])
+            if (result && result.length >= 1) {
+                resposne.json({
+                    code: 200,
+                    msg: '获取购物车数据成功',
+                    data: result,
+                })
+            } else {
+                resposne.json({
+                    code: 201,
+                    msg: '获取购物车数据失败'
+                })
+            }
+        } catch (error) {
+            resposne.json({
+                code: -201,
+                msg: '服务器异常',
+                error
+            })
+        }
+    }
+
+    // 支付成功后删除购物车数据
+    async delshopcart(request, resposne, next) {
+        let delSql = 'delete from shoppingcart where userid=?'
+        let params = [
+            request.body.userid
+        ]
+        try {
+
+            let result = await db.exec(delSql, params)
+            // console.log(result[0])
+            if (result && result.affectedRows >= 1) {
+                resposne.json({
+                    code: 200,
+                    msg: '支付成功',
+                    data: result,
+                })
+            } else {
+                resposne.json({
+                    code: 201,
+                    msg: '支付失败'
+                })
+            }
+        } catch (error) {
+            resposne.json({
+                code: -201,
+                msg: '服务器异常',
+                error
+            })
+        }
+    }
+
+
 }
 
 module.exports = new Shop

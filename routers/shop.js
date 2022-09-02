@@ -26,4 +26,26 @@ router.post('/addshopcart',require('../controller/shop').addshopcart)
 router.post('/selectshopcart',require('../controller/shop').selectshopcart)
 // 支付成功后删除购物车数据
 router.post('/delshopcart',require('../controller/shop').delshopcart)
+// 添加商品到收藏
+router.post('/addcollect',require('../controller/shop').addcollect)
+// 获取该用户是否收藏该商品
+router.post('/selectcollect',require('../controller/shop').selectcollect)
+// 取消商品到收藏
+router.post('/delcollect',require('../controller/shop').delcollect)
+// 获取该用户收藏的所有产品
+router.post('/selectallcollect',require('../controller/shop').selectallcollect)
+// 添加店铺到关注
+router.post('/addattention',require('../controller/shop').addattention)
+// 获取该用户是否关注店铺
+router.post('/selectattention',require('../controller/shop').selectattention)
+// 取消店铺关注
+router.post('/delattention',require('../controller/shop').delattention)
+// 获取该用户关注的所有店铺
+router.post('/selectallattention',require('../controller/shop').selectallattention)
+// 获取地址
+router.post('/selectaddress',require('../controller/shop').selectaddress)
+// 添加地址
+router.post('/addaddress',require('../controller/shop').addaddress)
+// 删除地址
+router.post('/deladdress',require('../controller/shop').deladdress)
 module.exports = router

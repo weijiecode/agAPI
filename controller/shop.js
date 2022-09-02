@@ -186,13 +186,13 @@ class Shop {
     }
     // 查询指定id的产品
     async selectshop(request, resposne, next) {
-        let loginSql = 'select * from commodity where id = ?'
+        let selectSql = 'select * from commodity where id = ?'
         let params = [
             request.body.id
         ]
         try {
 
-            let result = await db.exec(loginSql, params)
+            let result = await db.exec(selectSql, params)
             // console.log(result[0])
             if (result && result.length >= 1) {
                 resposne.json({
@@ -295,6 +295,339 @@ class Shop {
                 resposne.json({
                     code: 201,
                     msg: '支付失败'
+                })
+            }
+        } catch (error) {
+            resposne.json({
+                code: -201,
+                msg: '服务器异常',
+                error
+            })
+        }
+    }
+
+    // 添加商品到收藏
+    async addcollect(request, resposne, next) {
+        let insertsql = 'insert into collect(`userId`,`commodityId`)values(?,?)'
+        let params = [
+            request.body.userId,
+            request.body.commodityId
+        ]
+        try {
+            let result = await db.exec(insertsql, params)
+            if (result && result.affectedRows >= 1) {
+                resposne.json({
+                    code: 200,
+                    msg: '添加商品收藏成功'
+                })
+            } else {
+                resposne.json({
+                    code: 201,
+                    msg: '添加商品收藏失败'
+                })
+            }
+        } catch (error) {
+            resposne.json({
+                code: -201,
+                msg: '服务器异常',
+                error
+            })
+        }
+    }
+
+    // 获取该用户是否收藏该商品
+    async selectcollect(request, resposne, next) {
+        let selectSql = 'select * from collect where userId=? and commodityId=?'
+        let params = [
+            request.body.userId,
+            request.body.commodityId
+        ]
+        try {
+            let result = await db.exec(selectSql, params)
+            if (result && result.length >= 1) {
+                resposne.json({
+                    code: 200,
+                    msg: '获取收藏数据成功',
+                    data: result,
+                })
+            } else {
+                resposne.json({
+                    code: 201,
+                    msg: '获取收藏数据失败',
+                    data: result
+                })
+            }
+        } catch (error) {
+            resposne.json({
+                code: -201,
+                msg: '服务器异常',
+                error
+            })
+        }
+    }
+
+    // 获取该用户收藏的所有产品
+    async selectallcollect(request, resposne, next) {
+        let selectSql = 'select * from collect where userId=?'
+        let params = [
+            request.body.userId,
+        ]
+        try {
+            let result = await db.exec(selectSql, params)
+            if (result && result.length >= 1) {
+                resposne.json({
+                    code: 200,
+                    msg: '获取收藏数据成功',
+                    data: result,
+                })
+            } else {
+                resposne.json({
+                    code: 201,
+                    msg: '获取收藏数据失败',
+                    data: result
+                })
+            }
+        } catch (error) {
+            resposne.json({
+                code: -201,
+                msg: '服务器异常',
+                error
+            })
+        }
+    }
+
+    // 取消商品到收藏
+    async delcollect(request, resposne, next) {
+        let delSql = 'delete from collect where userId=? and commodityId=?'
+        let params = [
+            request.body.userId,
+            request.body.commodityId
+        ]
+        try {
+
+            let result = await db.exec(delSql, params)
+            // console.log(result[0])
+            if (result && result.affectedRows >= 1) {
+                resposne.json({
+                    code: 200,
+                    msg: '取消成功',
+                    data: result,
+                })
+            } else {
+                resposne.json({
+                    code: 201,
+                    msg: '取消失败'
+                })
+            }
+        } catch (error) {
+            resposne.json({
+                code: -201,
+                msg: '服务器异常',
+                error
+            })
+        }
+    }
+
+    // 添加店铺到关注
+    async addattention(request, resposne, next) {
+        let insertsql = 'insert into attention(`userId`,`merchantId`)values(?,?)'
+        let params = [
+            request.body.userId,
+            request.body.merchantId
+        ]
+        try {
+            let result = await db.exec(insertsql, params)
+            if (result && result.affectedRows >= 1) {
+                resposne.json({
+                    code: 200,
+                    msg: '关注店铺成功'
+                })
+            } else {
+                resposne.json({
+                    code: 201,
+                    msg: '关注店铺失败'
+                })
+            }
+        } catch (error) {
+            resposne.json({
+                code: -201,
+                msg: '服务器异常',
+                error
+            })
+        }
+    }
+
+    // 获取该用户是否关注该店铺
+    async selectattention(request, resposne, next) {
+        let selectSql = 'select * from attention where userId=? and merchantId=?'
+        let params = [
+            request.body.userId,
+            request.body.merchantId
+        ]
+        try {
+            let result = await db.exec(selectSql, params)
+            if (result && result.length >= 1) {
+                resposne.json({
+                    code: 200,
+                    msg: '获取关注数据成功',
+                    data: result,
+                })
+            } else {
+                resposne.json({
+                    code: 201,
+                    msg: '获取关注数据失败',
+                    data: result
+                })
+            }
+        } catch (error) {
+            resposne.json({
+                code: -201,
+                msg: '服务器异常',
+                error
+            })
+        }
+    }
+
+    // 获取该用户关注的所有店铺
+    async selectallattention(request, resposne, next) {
+        let selectSql = 'select * from attention where userId=?'
+        let params = [
+            request.body.userId,
+        ]
+        try {
+            let result = await db.exec(selectSql, params)
+            if (result && result.length >= 1) {
+                resposne.json({
+                    code: 200,
+                    msg: '获取关注数据成功',
+                    data: result,
+                })
+            } else {
+                resposne.json({
+                    code: 201,
+                    msg: '获取关注数据失败',
+                    data: result
+                })
+            }
+        } catch (error) {
+            resposne.json({
+                code: -201,
+                msg: '服务器异常',
+                error
+            })
+        }
+    }
+
+    // 取消店铺关注
+    async delattention(request, resposne, next) {
+        let delSql = 'delete from attention where userId=? and merchantId=?'
+        let params = [
+            request.body.userId,
+            request.body.merchantId
+        ]
+        try {
+
+            let result = await db.exec(delSql, params)
+            // console.log(result[0])
+            if (result && result.affectedRows >= 1) {
+                resposne.json({
+                    code: 200,
+                    msg: '取消成功',
+                    data: result,
+                })
+            } else {
+                resposne.json({
+                    code: 201,
+                    msg: '取消失败'
+                })
+            }
+        } catch (error) {
+            resposne.json({
+                code: -201,
+                msg: '服务器异常',
+                error
+            })
+        }
+    }
+
+    // 获取地址
+    async selectaddress(request, resposne, next) {
+        let selectSql = 'select * from address where userId=?'
+        let params = [
+            request.body.userId,
+        ]
+        try {
+            let result = await db.exec(selectSql, params)
+            if (result && result.length >= 1) {
+                resposne.json({
+                    code: 200,
+                    msg: '获取地址成功',
+                    data: result,
+                })
+            } else {
+                resposne.json({
+                    code: 201,
+                    msg: '获取地址失败',
+                    data: result
+                })
+            }
+        } catch (error) {
+            resposne.json({
+                code: -201,
+                msg: '服务器异常',
+                error
+            })
+        }
+    }
+
+    // 添加地址
+    async addaddress(request, resposne, next) {
+        let insertsql = 'insert into address(`userId`,`address`)values(?,?)'
+        let params = [
+            request.body.userId,
+            request.body.address
+        ]
+        try {
+            let result = await db.exec(insertsql, params)
+            if (result && result.affectedRows >= 1) {
+                resposne.json({
+                    code: 200,
+                    msg: '添加地址成功'
+                })
+            } else {
+                resposne.json({
+                    code: 201,
+                    msg: '添加地址失败'
+                })
+            }
+        } catch (error) {
+            resposne.json({
+                code: -201,
+                msg: '服务器异常',
+                error
+            })
+        }
+    }
+
+    // 删除地址
+    async deladdress(request, resposne, next) {
+        let delSql = 'delete from address where userId=?'
+        let params = [
+            request.body.userId
+        ]
+        try {
+            let result = await db.exec(delSql, params)
+            // console.log(result[0])
+            if (result && result.affectedRows >= 1) {
+                resposne.json({
+                    code: 200,
+                    msg: '删除成功',
+                    data: result,
+                })
+            } else {
+                resposne.json({
+                    code: 201,
+                    msg: '删除失败'
                 })
             }
         } catch (error) {

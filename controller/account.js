@@ -63,6 +63,64 @@ class Account {
             })
         }
     }
+    // 修改密码检查旧密码是否正确
+    async checkpassword(request, resposne, next) {
+        let loginSql = 'select * from users where id=? and password=?'
+        let params = [
+            request.body.id,
+            request.body.password
+        ]
+        try {
+            let result = await db.exec(loginSql, params)
+            // console.log(result[0])
+            if (result && result.length >= 1) {
+                resposne.json({
+                    code: 200,
+                    msg: '旧密码正确',
+                    data: result[0],
+                })
+            } else {
+                resposne.json({
+                    code: 201,
+                    msg: '旧密码错误'
+                })
+            }
+        } catch (error) {
+            resposne.json({
+                code: -201,
+                msg: '服务器异常',
+                error
+            })
+        }
+    }
+        // 修改密码
+        async updatepassword(request, resposne, next) {
+            let updatesql = 'update users set password=? where id=?'
+            let params = [
+                request.body.password,
+                request.body.id
+            ]
+            try {
+                let result = await db.exec(updatesql, params)
+                if (result && result.affectedRows >= 1) {
+                    resposne.json({
+                        code: 200,
+                        msg: '修改密码成功'
+                    })
+                } else {
+                    resposne.json({
+                        code: 201,
+                        msg: '修改密码失败'
+                    })
+                }
+            } catch (error) {
+                resposne.json({
+                    code: -201,
+                    msg: '服务器异常',
+                    error
+                })
+            }
+        }
     // 获取用户数据
     async userdata(request, resposne, next) {
         let loginSql = 'select nickname,introduction,photo,email,phone,username,sex from users where id=?'

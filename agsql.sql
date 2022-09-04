@@ -11,28 +11,11 @@
  Target Server Version : 80028
  File Encoding         : 65001
 
- Date: 03/09/2022 03:18:02
+ Date: 04/09/2022 23:12:48
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
-
--- ----------------------------
--- Table structure for address
--- ----------------------------
-DROP TABLE IF EXISTS `address`;
-CREATE TABLE `address`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `userId` int(0) NULL DEFAULT NULL,
-  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of address
--- ----------------------------
-INSERT INTO `address` VALUES (1, 1, '123');
-INSERT INTO `address` VALUES (342, 2, '福州市');
 
 -- ----------------------------
 -- Table structure for admin
@@ -59,7 +42,7 @@ CREATE TABLE `attention`  (
   `userId` int(0) NULL DEFAULT NULL,
   `merchantId` int(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of attention
@@ -75,7 +58,7 @@ CREATE TABLE `collect`  (
   `userId` int(0) NOT NULL,
   `commodityId` int(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of collect
@@ -105,11 +88,12 @@ CREATE TABLE `commodity`  (
 -- ----------------------------
 INSERT INTO `commodity` VALUES (1, '1', '玉米1', '厦门玉米新鲜', '38', 'http://localhost:5001/public/shopphoto/bb224d87ca0b8edd5a122402e1a7278b', '1');
 INSERT INTO `commodity` VALUES (2, '1', '玉米1', '厦门玉米新鲜', '32', 'http://localhost:5001/public/shopphoto/33835dc2a2823c63bcf143fcfdb2c657', '1');
-INSERT INTO `commodity` VALUES (3, '2', '橘子12', '测试', '8', NULL, '1');
+INSERT INTO `commodity` VALUES (3, '2', '橘子12', '测试', '8', 'http://localhost:5001/public/shopphoto/bb224d87ca0b8edd5a122402e1a7278b', '1');
 INSERT INTO `commodity` VALUES (4, '1', '玉米10', '厦门玉米新鲜', '32', 'http://localhost:5001/public/shopphoto/f8770263a5a84a9ce336412e8bb31599', '1');
 INSERT INTO `commodity` VALUES (5, '1', '玉米3', '厦门玉米新鲜', '32', 'http://localhost:5001/public/shopphoto/f8770263a5a84a9ce336412e8bb31599', '1');
 INSERT INTO `commodity` VALUES (6, '1', '玉米5', '厦门玉米新鲜', '32', 'http://localhost:5001/public/shopphoto/f8770263a5a84a9ce336412e8bb31599', '1');
 INSERT INTO `commodity` VALUES (7, '1', 'test', 'test', '10', 'http://localhost:5001/public/shopphoto/1a58d810d3fdbf7a42709c06a29d9126', '2');
+INSERT INTO `commodity` VALUES (8, '1', 'test', 'content1', '99', 'http://localhost:5001/public/shopphoto/db7c0167d2839e77d84fd47bcd7acb7b', '1');
 
 -- ----------------------------
 -- Table structure for merchant
@@ -131,6 +115,28 @@ INSERT INTO `merchant` VALUES (1, 'test', '123456', '测试店铺', NULL);
 INSERT INTO `merchant` VALUES (2, '123@', '123', '1232店铺', '1231');
 
 -- ----------------------------
+-- Table structure for payed
+-- ----------------------------
+DROP TABLE IF EXISTS `payed`;
+CREATE TABLE `payed`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `userId` int(0) NULL DEFAULT NULL,
+  `commodityId` int(0) NULL DEFAULT NULL,
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of payed
+-- ----------------------------
+INSERT INTO `payed` VALUES (30, 2, 1, '1231', '福州市');
+INSERT INTO `payed` VALUES (31, 2, 1, '', '福州市');
+INSERT INTO `payed` VALUES (32, 2, 1, '', '福州市');
+INSERT INTO `payed` VALUES (33, 2, 2, '', '福州市');
+INSERT INTO `payed` VALUES (34, 2, 2, '', '福州市');
+
+-- ----------------------------
 -- Table structure for shoppingcart
 -- ----------------------------
 DROP TABLE IF EXISTS `shoppingcart`;
@@ -139,7 +145,7 @@ CREATE TABLE `shoppingcart`  (
   `commodityid` int(0) NOT NULL,
   `userid` int(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of shoppingcart
@@ -160,13 +166,14 @@ CREATE TABLE `users`  (
   `email` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `introduction` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `photo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (1, 'yating', '123456', 'ilili', '0', '19900000000', 'ilili@163.com', '1', '1');
-INSERT INTO `users` VALUES (2, 'root', '123456', 'ilili', '1', '123', '123@', '123@', 'http://localhost:5001/public/upload/c0af6f3a2de70f86fadf265274ece52d');
+INSERT INTO `users` VALUES (1, 'yating', '123456', 'ilili', '0', '19900000000', 'ilili@163.com', '12', '1', '1');
+INSERT INTO `users` VALUES (2, 'root', '123456', 'ilili', '1', '123', '123@', '123@', 'http://localhost:5001/public/upload/c0af6f3a2de70f86fadf265274ece52d', '福州市');
 
 SET FOREIGN_KEY_CHECKS = 1;

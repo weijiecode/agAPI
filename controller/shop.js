@@ -274,7 +274,6 @@ class Shop {
             })
         }
     }
-
     // 支付成功后删除购物车数据
     async delshopcart(request, resposne, next) {
         let delSql = 'delete from shoppingcart where userid=?'
@@ -295,6 +294,123 @@ class Shop {
                 resposne.json({
                     code: 201,
                     msg: '支付失败'
+                })
+            }
+        } catch (error) {
+            resposne.json({
+                code: -201,
+                msg: '服务器异常',
+                error
+            })
+        }
+    }
+    // 支付成功后保存数据
+    async addpay(request, resposne, next) {
+        let insertsql = 'insert into payed(`commodityId`,`userId`,`address`,`remark`)values(?,?,?,?)'
+        let params = [
+            request.body.commodityId,
+            request.body.userId,
+            request.body.address,
+            request.body.remark
+        ]
+        try {
+            let result = await db.exec(insertsql, params)
+            if (result && result.affectedRows >= 1) {
+                resposne.json({
+                    code: 200,
+                    msg: '支付成功'
+                })
+            } else {
+                resposne.json({
+                    code: 201,
+                    msg: '支付失败'
+                })
+            }
+        } catch (error) {
+            resposne.json({
+                code: -201,
+                msg: '服务器异常',
+                error
+            })
+        }
+    }
+
+    // 查询所有支付后的数据
+    async selectpay(request, resposne, next) {
+        let selectSql = 'select * from payed'
+        try {
+            let result = await db.exec(selectSql)
+            if (result && result.length >= 1) {
+                resposne.json({
+                    code: 200,
+                    msg: '获取支付数据成功',
+                    data: result,
+                })
+            } else {
+                resposne.json({
+                    code: 201,
+                    msg: '获取支付数据失败'
+                })
+            }
+        } catch (error) {
+            resposne.json({
+                code: -201,
+                msg: '服务器异常',
+                error
+            })
+        }
+    }
+
+    // 取消指定id的订单
+    async delpay(request, resposne, next) {
+        let delSql = 'delete from payed where id=?'
+        let params = [
+            request.body.id
+        ]
+        try {
+            let result = await db.exec(delSql, params)
+            // console.log(result[0])
+            if (result && result.affectedRows >= 1) {
+                resposne.json({
+                    code: 200,
+                    msg: '取消订单成功',
+                    data: result,
+                })
+            } else {
+                resposne.json({
+                    code: 201,
+                    msg: '取消订单失败'
+                })
+            }
+        } catch (error) {
+            resposne.json({
+                code: -201,
+                msg: '服务器异常',
+                error
+            })
+        }
+    }
+
+
+    // 修改指定id的订单
+    async updatepay(request, resposne, next) {
+        let updatesql = 'update payed set remark=?,address=? where id=?'
+        let params = [
+            request.body.remark,
+            request.body.address,
+            request.body.id
+        ]
+        try {
+            let result = await db.exec(updatesql, params)
+            if (result && result.affectedRows >= 1) {
+                resposne.json({
+                    code: 200,
+                    msg: '修改订单成功'
+                })
+            } else {
+                resposne.json({
+                    code: 201,
+                    msg: '修改订单失败'
                 })
             }
         } catch (error) {
@@ -552,7 +668,7 @@ class Shop {
 
     // 获取地址
     async selectaddress(request, resposne, next) {
-        let selectSql = 'select * from address where userId=?'
+        let selectSql = 'select * from users where id=?'
         let params = [
             request.body.userId,
         ]
@@ -582,10 +698,10 @@ class Shop {
 
     // 添加地址
     async addaddress(request, resposne, next) {
-        let insertsql = 'insert into address(`userId`,`address`)values(?,?)'
+        let insertsql = 'update users set address=? where id=?'
         let params = [
-            request.body.userId,
-            request.body.address
+            request.body.address,
+            request.body.userId
         ]
         try {
             let result = await db.exec(insertsql, params)
@@ -611,8 +727,9 @@ class Shop {
 
     // 删除地址
     async deladdress(request, resposne, next) {
-        let delSql = 'delete from address where userId=?'
+        let delSql = 'update users set address=? where id=?'
         let params = [
+            request.body.address,
             request.body.userId
         ]
         try {

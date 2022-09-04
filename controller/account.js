@@ -93,34 +93,34 @@ class Account {
             })
         }
     }
-        // 修改密码
-        async updatepassword(request, resposne, next) {
-            let updatesql = 'update users set password=? where id=?'
-            let params = [
-                request.body.password,
-                request.body.id
-            ]
-            try {
-                let result = await db.exec(updatesql, params)
-                if (result && result.affectedRows >= 1) {
-                    resposne.json({
-                        code: 200,
-                        msg: '修改密码成功'
-                    })
-                } else {
-                    resposne.json({
-                        code: 201,
-                        msg: '修改密码失败'
-                    })
-                }
-            } catch (error) {
+    // 修改密码
+    async updatepassword(request, resposne, next) {
+        let updatesql = 'update users set password=? where id=?'
+        let params = [
+            request.body.password,
+            request.body.id
+        ]
+        try {
+            let result = await db.exec(updatesql, params)
+            if (result && result.affectedRows >= 1) {
                 resposne.json({
-                    code: -201,
-                    msg: '服务器异常',
-                    error
+                    code: 200,
+                    msg: '修改密码成功'
+                })
+            } else {
+                resposne.json({
+                    code: 201,
+                    msg: '修改密码失败'
                 })
             }
+        } catch (error) {
+            resposne.json({
+                code: -201,
+                msg: '服务器异常',
+                error
+            })
         }
+    }
     // 获取用户数据
     async userdata(request, resposne, next) {
         let loginSql = 'select nickname,introduction,photo,email,phone,username,sex from users where id=?'
@@ -310,6 +310,125 @@ class Account {
                 resposne.json({
                     code: 201,
                     msg: '注册失败'
+                })
+            }
+        } catch (error) {
+            resposne.json({
+                code: -201,
+                msg: '服务器异常',
+                error
+            })
+        }
+    }
+
+
+    // 管理员获取所有用户数据
+    async allusers(request, resposne, next) {
+        let loginSql = 'select * from users'
+        try {
+            let result = await db.exec(loginSql)
+            // console.log(result[0])
+            if (result && result.length >= 1) {
+                resposne.json({
+                    code: 200,
+                    msg: '获取成功',
+                    data: result,
+                })
+            } else {
+                resposne.json({
+                    code: 201,
+                    msg: '获取错误'
+                })
+            }
+        } catch (error) {
+            resposne.json({
+                code: -201,
+                msg: '服务器异常',
+                error
+            })
+        }
+    }
+
+    // 修改用户信息
+    async edituser(request, resposne, next) {
+        let updateSql = 'update users set username=?,nickname=?,sex=?,phone=?,email=?,introduction=? where id=?'
+        let params = [
+            request.body.username,
+            request.body.nickname,
+            request.body.sex,
+            request.body.phone,
+            request.body.email,
+            request.body.introduction,
+            request.body.id
+        ]
+        try {
+            let result = await db.exec(updateSql, params)
+            if (result && result.affectedRows >= 1) {
+                resposne.json({
+                    code: 200,
+                    msg: '修改用户成功'
+                })
+                console.log(request.body.oldphoto)
+            } else {
+                resposne.json({
+                    code: 201,
+                    msg: '修改用户失败，请重试'
+                })
+            }
+        } catch (error) {
+            resposne.json({
+                code: -201,
+                msg: '服务器异常',
+                error
+            })
+        }
+    }
+
+    // 管理员删除用户
+    async deluser(request, resposne, next) {
+        let delSql = 'delete from users where id=?'
+        let params = [
+            request.body.id
+        ]
+        try {
+            let result = await db.exec(delSql, params)
+            if (result && result.affectedRows >= 1) {
+                resposne.json({
+                    code: 200,
+                    msg: '删除成功',
+                    data: result,
+                })
+            } else {
+                resposne.json({
+                    code: 201,
+                    msg: '删除失败'
+                })
+            }
+        } catch (error) {
+            resposne.json({
+                code: -201,
+                msg: '服务器异常',
+                error
+            })
+        }
+    }
+
+    // 查询所有用户名称、地址和id
+    async iduser(request, resposne, next) {
+        let loginSql = 'select username,id,address from users'
+        try {
+            let result = await db.exec(loginSql)
+            // console.log(result[0])
+            if (result && result.length >= 1) {
+                resposne.json({
+                    code: 200,
+                    msg: '获取成功',
+                    data: result,
+                })
+            } else {
+                resposne.json({
+                    code: 201,
+                    msg: '获取错误'
                 })
             }
         } catch (error) {

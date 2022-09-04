@@ -26,6 +26,14 @@ router.post('/addshopcart',require('../controller/shop').addshopcart)
 router.post('/selectshopcart',require('../controller/shop').selectshopcart)
 // 支付成功后删除购物车数据
 router.post('/delshopcart',require('../controller/shop').delshopcart)
+// 支付成功后保存数据
+router.post('/addpay',require('../controller/shop').addpay)
+// 查询所有支付后的数据
+router.post('/selectpay',require('../controller/shop').selectpay)
+// 取消指定id的订单
+router.post('/delpay',require('../controller/shop').delpay)
+// 修改指定id的订单
+router.post('/updatepay',require('../controller/shop').updatepay)
 // 添加商品到收藏
 router.post('/addcollect',require('../controller/shop').addcollect)
 // 获取该用户是否收藏该商品

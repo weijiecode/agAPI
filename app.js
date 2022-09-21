@@ -17,6 +17,7 @@ server.use(express.json())
 server.use('/account',require('./routers/account'))
 server.use('/mycenter',require('./routers/mycenter'))
 server.use('/shop',require('./routers/shop'))
+server.use('/information',require('./routers/information'))
 
 server.listen(5001,()=>{
     console.log('server up 5001')

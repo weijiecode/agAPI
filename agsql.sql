@@ -11,7 +11,7 @@
  Target Server Version : 80028
  File Encoding         : 65001
 
- Date: 04/09/2022 23:12:48
+ Date: 22/09/2022 19:38:42
 */
 
 SET NAMES utf8mb4;
@@ -42,7 +42,7 @@ CREATE TABLE `attention`  (
   `userId` int(0) NULL DEFAULT NULL,
   `merchantId` int(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of attention
@@ -81,7 +81,7 @@ CREATE TABLE `commodity`  (
   `photo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `status` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of commodity
@@ -94,6 +94,25 @@ INSERT INTO `commodity` VALUES (5, '1', '玉米3', '厦门玉米新鲜', '32', '
 INSERT INTO `commodity` VALUES (6, '1', '玉米5', '厦门玉米新鲜', '32', 'http://localhost:5001/public/shopphoto/f8770263a5a84a9ce336412e8bb31599', '1');
 INSERT INTO `commodity` VALUES (7, '1', 'test', 'test', '10', 'http://localhost:5001/public/shopphoto/1a58d810d3fdbf7a42709c06a29d9126', '2');
 INSERT INTO `commodity` VALUES (8, '1', 'test', 'content1', '99', 'http://localhost:5001/public/shopphoto/db7c0167d2839e77d84fd47bcd7acb7b', '1');
+INSERT INTO `commodity` VALUES (9, '3', '123', '123', '123', 'http://localhost:5001/public/shopphoto/3e5174e4568e5cf5b18a4b9f46f09cc9', '1');
+
+-- ----------------------------
+-- Table structure for information
+-- ----------------------------
+DROP TABLE IF EXISTS `information`;
+CREATE TABLE `information`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `title` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `picture` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `datetime` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of information
+-- ----------------------------
+INSERT INTO `information` VALUES (1, '2', '3', '4', '5');
 
 -- ----------------------------
 -- Table structure for merchant
@@ -106,13 +125,14 @@ CREATE TABLE `merchant`  (
   `shopname` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `idcard` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of merchant
 -- ----------------------------
 INSERT INTO `merchant` VALUES (1, 'test', '123456', '测试店铺', NULL);
 INSERT INTO `merchant` VALUES (2, '123@', '123', '1232店铺', '1231');
+INSERT INTO `merchant` VALUES (3, 'test2', '123456', 'test店铺', '1122');
 
 -- ----------------------------
 -- Table structure for payed
@@ -125,7 +145,7 @@ CREATE TABLE `payed`  (
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of payed
@@ -135,6 +155,10 @@ INSERT INTO `payed` VALUES (31, 2, 1, '', '福州市');
 INSERT INTO `payed` VALUES (32, 2, 1, '', '福州市');
 INSERT INTO `payed` VALUES (33, 2, 2, '', '福州市');
 INSERT INTO `payed` VALUES (34, 2, 2, '', '福州市');
+INSERT INTO `payed` VALUES (35, 2, 2, '', '福州市');
+INSERT INTO `payed` VALUES (36, 2, 2, '', '福州市');
+INSERT INTO `payed` VALUES (37, 2, 2, '', '福州市');
+INSERT INTO `payed` VALUES (38, 2, 2, '', '福州市');
 
 -- ----------------------------
 -- Table structure for shoppingcart
@@ -145,12 +169,13 @@ CREATE TABLE `shoppingcart`  (
   `commodityid` int(0) NOT NULL,
   `userid` int(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 43 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of shoppingcart
 -- ----------------------------
 INSERT INTO `shoppingcart` VALUES (1, 1, 1);
+INSERT INTO `shoppingcart` VALUES (42, 1, 2);
 
 -- ----------------------------
 -- Table structure for users

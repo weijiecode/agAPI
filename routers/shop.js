@@ -6,6 +6,8 @@ const upload = multer({dest:"./public/shopphoto"})
 
 //商家获取自己店铺商品
 router.post('/commodity',require('../controller/shop').commodity)
+// 用户访问商品增加访问次数
+router.post('/updateshopcount',require('../controller/shop').updateshopcount)
 //管理员查询所有商品
 router.post('/admincommodity',require('../controller/shop').admincommodity)
 //查询商品对应id的店铺名称
@@ -22,6 +24,8 @@ router.post('/updatestatus',require('../controller/shop').updatestatus)
 router.post('/selectshop',require('../controller/shop').selectshop)
 // 添加商品到购物车
 router.post('/addshopcart',require('../controller/shop').addshopcart)
+// 删除购物车商品
+router.post('/delcart',require('../controller/shop').delcart)
 // 查询指定用户的购物车数据
 router.post('/selectshopcart',require('../controller/shop').selectshopcart)
 // 支付成功后删除购物车数据

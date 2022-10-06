@@ -57,9 +57,38 @@ class Shop {
         }
     }
 
+    // 修改商品访问次数
+    async updateshopcount(request, resposne, next) {
+        let updatesql = 'update commodity set count=? where id=?'
+        let params = [
+            request.body.count,
+            request.body.id
+        ]
+        try {
+            let result = await db.exec(updatesql, params)
+            if (result && result.affectedRows >= 1) {
+                resposne.json({
+                    code: 200,
+                    msg: '修改商品访问成功'
+                })
+            } else {
+                resposne.json({
+                    code: 201,
+                    msg: '修改商品访问失败'
+                })
+            }
+        } catch (error) {
+            resposne.json({
+                code: -201,
+                msg: '服务器异常',
+                error
+            })
+        }
+    }
+
     // 管理员获取所有产品数据
     async admincommodity(request, resposne, next) {
-        let loginSql = 'select * from commodity'
+        let loginSql = 'select * from commodity order by count DESC'
         try {
             let result = await db.exec(loginSql)
             // console.log(result[0])
@@ -294,6 +323,36 @@ class Shop {
                 resposne.json({
                     code: 201,
                     msg: '支付失败'
+                })
+            }
+        } catch (error) {
+            resposne.json({
+                code: -201,
+                msg: '服务器异常',
+                error
+            })
+        }
+    }
+    // 删除指定购物车数据
+    async delcart(request, resposne, next) {
+        let delSql = 'delete from shoppingcart where id=?'
+        let params = [
+            request.body.id
+        ]
+        try {
+
+            let result = await db.exec(delSql, params)
+            // console.log(result[0])
+            if (result && result.affectedRows >= 1) {
+                resposne.json({
+                    code: 200,
+                    msg: '删除成功',
+                    data: result,
+                })
+            } else {
+                resposne.json({
+                    code: 201,
+                    msg: '删除失败'
                 })
             }
         } catch (error) {

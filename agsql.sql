@@ -11,10 +11,10 @@
  Target Server Version : 80028
  File Encoding         : 65001
 
- Date: 06/10/2022 19:49:29
+ Date: 19/10/2022 18:44:43
 */
 
-SET NAMES utf8;
+SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
@@ -42,14 +42,14 @@ CREATE TABLE `attention`  (
   `userId` int(0) NULL DEFAULT NULL,
   `merchantId` int(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of attention
 -- ----------------------------
-INSERT INTO `attention` VALUES (3, 2, 1);
 INSERT INTO `attention` VALUES (5, 1, 3);
-INSERT INTO `attention` VALUES (6, 1, 1);
+INSERT INTO `attention` VALUES (7, 1, 1);
+INSERT INTO `attention` VALUES (8, 2, 1);
 
 -- ----------------------------
 -- Table structure for collect
@@ -60,7 +60,7 @@ CREATE TABLE `collect`  (
   `userId` int(0) NOT NULL,
   `commodityId` int(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of collect
@@ -69,6 +69,7 @@ INSERT INTO `collect` VALUES (2, 1, 2);
 INSERT INTO `collect` VALUES (7, 2, 1);
 INSERT INTO `collect` VALUES (8, 2, 2);
 INSERT INTO `collect` VALUES (10, 2, 5);
+INSERT INTO `collect` VALUES (11, 1, 4);
 
 -- ----------------------------
 -- Table structure for commodity
@@ -89,15 +90,15 @@ CREATE TABLE `commodity`  (
 -- ----------------------------
 -- Records of commodity
 -- ----------------------------
-INSERT INTO `commodity` VALUES (1, '1', '橙子', '来自青青草原的超级无敌巨无霸甜的大橙子', '29.9', 'http://localhost:5001/public/shopphoto/a81682481f5e0b3fe489640224921d1b', '1', 10);
-INSERT INTO `commodity` VALUES (2, '1', '地瓜', '来自混凝土超级软糯沙沙的矮种地瓜', '12.9', 'http://localhost:5001/public/shopphoto/a01e4b3d67ae90920fa9e2332cbb9c84', '1', 12);
-INSERT INTO `commodity` VALUES (3, '2', '山东大葱', '山东大葱山东大葱189的山东大葱', '8.8', 'http://localhost:5001/public/shopphoto/069796b2af4c90c628584eaf928a489e', '1', 3);
-INSERT INTO `commodity` VALUES (4, '1', '莲雾', '来自贫困山区，辛苦耕种的多汁甜甜的大个莲雾', '32', 'http://localhost:5001/public/shopphoto/55c5ad08de946260107a24a2a973a9bd', '1', 2);
-INSERT INTO `commodity` VALUES (5, '1', '苹果', '来自烟台阳光充足小镇的翠翠甜甜大苹果，一箱足足5斤！！！', '32', 'http://localhost:5001/public/shopphoto/812ca637d09bf19ed78a775072cf3f0a', '1', 0);
-INSERT INTO `commodity` VALUES (6, '1', '枸杞子', '来自宁夏超级甜甜干巴不压秤的枸杞子，富含超级多的维生素，寒冬必备', '39', 'http://localhost:5001/public/shopphoto/40d96912367e9dad1f2acdf72a876124', '1', 15);
+INSERT INTO `commodity` VALUES (1, '1', '橙子', '来自青青草原的超级无敌巨无霸甜的大橙子', '29.9', 'http://localhost:5001/public/shopphoto/a81682481f5e0b3fe489640224921d1b', '1', 11);
+INSERT INTO `commodity` VALUES (2, '1', '地瓜', '来自混凝土超级软糯沙沙的矮种地瓜', '12.9', 'http://localhost:5001/public/shopphoto/a01e4b3d67ae90920fa9e2332cbb9c84', '1', 13);
+INSERT INTO `commodity` VALUES (3, '2', '山东大葱', '山东大葱山东大葱189的山东大葱', '8.8', 'http://localhost:5001/public/shopphoto/069796b2af4c90c628584eaf928a489e', '1', 44);
+INSERT INTO `commodity` VALUES (4, '1', '莲雾', '来自贫困山区，辛苦耕种的多汁甜甜的大个莲雾', '32', 'http://localhost:5001/public/shopphoto/55c5ad08de946260107a24a2a973a9bd', '1', 27);
+INSERT INTO `commodity` VALUES (5, '1', '苹果', '来自烟台阳光充足小镇的翠翠甜甜大苹果，一箱足足5斤！！！', '32', 'http://localhost:5001/public/shopphoto/812ca637d09bf19ed78a775072cf3f0a', '1', 2);
+INSERT INTO `commodity` VALUES (6, '1', '枸杞子', '来自宁夏超级甜甜干巴不压秤的枸杞子，富含超级多的维生素，寒冬必备', '39', 'http://localhost:5001/public/shopphoto/40d96912367e9dad1f2acdf72a876124', '1', 22);
 INSERT INTO `commodity` VALUES (7, '1', '牛奶', '来自呼伦贝尔，吃了很多鲜草才生产的新鲜牛奶！（保质期短，现买现喝）', '10', 'http://localhost:5001/public/shopphoto/9018cd3082b4dda9b799205cb8487847', '2', 0);
-INSERT INTO `commodity` VALUES (8, '1', '海南酸豆角', '正宗海南酸豆角，当地特产纯天然酸料，酸口星人的最爱！一口整个爱上！', '99', 'http://localhost:5001/public/shopphoto/022886bc45180d45057ef4ff6f9f22c0', '1', 0);
-INSERT INTO `commodity` VALUES (9, '3', '鱼腥草', '对此评价两极分化严重，爱吃着一口封神，不爱吃着敬而远之！一尝探究竟', '12.3', 'http://localhost:5001/public/shopphoto/1a87dbf507633e7b5d2c28aaab49d1bd', '1', 1);
+INSERT INTO `commodity` VALUES (8, '1', '海南酸豆角', '正宗海南酸豆角，当地特产纯天然酸料，酸口星人的最爱！一口整个爱上！', '99', 'http://localhost:5001/public/shopphoto/022886bc45180d45057ef4ff6f9f22c0', '1', 1);
+INSERT INTO `commodity` VALUES (9, '3', '鱼腥草', '对此评价两极分化严重，爱吃着一口封神，不爱吃着敬而远之！一尝探究竟', '12.3', 'http://localhost:5001/public/shopphoto/1a87dbf507633e7b5d2c28aaab49d1bd', '1', 19);
 
 -- ----------------------------
 -- Table structure for information
@@ -151,7 +152,7 @@ CREATE TABLE `payed`  (
   `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 39 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 75 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of payed
@@ -165,6 +166,42 @@ INSERT INTO `payed` VALUES (35, 2, 2, '', '宁德市');
 INSERT INTO `payed` VALUES (36, 2, 2, '', '宁德市');
 INSERT INTO `payed` VALUES (37, 2, 2, '', '宁德市');
 INSERT INTO `payed` VALUES (38, 2, 2, '', '宁德市');
+INSERT INTO `payed` VALUES (39, 2, 3, '', '福州市');
+INSERT INTO `payed` VALUES (40, 2, 46, '', '福州市');
+INSERT INTO `payed` VALUES (41, 2, 46, '', '福州市');
+INSERT INTO `payed` VALUES (42, 2, 46, '', '福州市');
+INSERT INTO `payed` VALUES (43, 2, 46, '', '福州市');
+INSERT INTO `payed` VALUES (44, 2, 46, '', '福州市');
+INSERT INTO `payed` VALUES (45, 2, 46, '', '福州市');
+INSERT INTO `payed` VALUES (46, 2, 3, '', '福州市');
+INSERT INTO `payed` VALUES (47, 2, 46, '', '福州市');
+INSERT INTO `payed` VALUES (48, 2, 58, '', '福州市');
+INSERT INTO `payed` VALUES (49, 2, 57, '', '福州市');
+INSERT INTO `payed` VALUES (50, 2, 58, '', '福州市');
+INSERT INTO `payed` VALUES (51, 2, 57, '', '福州市');
+INSERT INTO `payed` VALUES (52, 2, 46, '', '福州市');
+INSERT INTO `payed` VALUES (53, 2, 46, '', '福州市');
+INSERT INTO `payed` VALUES (54, 2, 46, '', '福州市');
+INSERT INTO `payed` VALUES (55, 2, 46, '', '福州市');
+INSERT INTO `payed` VALUES (56, 2, 46, '', '福州市');
+INSERT INTO `payed` VALUES (57, 1, 59, '', '福建省宁德师青青草原收货点');
+INSERT INTO `payed` VALUES (58, 1, 44, '', '福建省宁德师青青草原收货点');
+INSERT INTO `payed` VALUES (59, 1, 53, '', '福建省宁德师青青草原收货点');
+INSERT INTO `payed` VALUES (60, 1, 1, '', '福建省宁德师青青草原收货点');
+INSERT INTO `payed` VALUES (61, 1, 63, '', '福建省宁德师青青草原收货点');
+INSERT INTO `payed` VALUES (62, 1, 64, '', '福建省宁德师青青草原收货点');
+INSERT INTO `payed` VALUES (63, 1, 65, '', '福建省宁德师青青草原收货点');
+INSERT INTO `payed` VALUES (64, 1, 63, '', '福建省宁德师青青草原收货点');
+INSERT INTO `payed` VALUES (65, 1, 64, '', '福建省宁德师青青草原收货点');
+INSERT INTO `payed` VALUES (66, 1, 65, '', '福建省宁德师青青草原收货点');
+INSERT INTO `payed` VALUES (67, 1, 63, '', '福建省宁德师青青草原收货点');
+INSERT INTO `payed` VALUES (68, 1, 64, '', '福建省宁德师青青草原收货点');
+INSERT INTO `payed` VALUES (69, 1, 66, '', '福建省宁德师青青草原收货点');
+INSERT INTO `payed` VALUES (70, 1, 66, '', '福建省宁德师青青草原收货点');
+INSERT INTO `payed` VALUES (71, 1, 65, '', '福建省宁德师青青草原收货点');
+INSERT INTO `payed` VALUES (72, 1, 63, '', '福建省宁德师青青草原收货点');
+INSERT INTO `payed` VALUES (73, 1, 64, '', '福建省宁德师青青草原收货点');
+INSERT INTO `payed` VALUES (74, 1, 65, '', '福建省宁德师青青草原收货点');
 
 -- ----------------------------
 -- Table structure for shoppingcart
@@ -175,16 +212,11 @@ CREATE TABLE `shoppingcart`  (
   `commodityid` int(0) NOT NULL,
   `userid` int(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 46 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 67 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of shoppingcart
 -- ----------------------------
-INSERT INTO `shoppingcart` VALUES (1, 1, 1);
-INSERT INTO `shoppingcart` VALUES (43, 8, 1);
-INSERT INTO `shoppingcart` VALUES (44, 4, 1);
-INSERT INTO `shoppingcart` VALUES (46, 6, 2);
-INSERT INTO `shoppingcart` VALUES (52, 9, 2);
 
 -- ----------------------------
 -- Table structure for users
@@ -201,13 +233,14 @@ CREATE TABLE `users`  (
   `introduction` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `photo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `discount` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (1, 'yating', '123456', 'ilili', '0', '19900000000', 'ilili@163.com', 'saxa1', 'http://localhost:5001/public/upload/014a0bf22bfb5bf4395b0931706b7742', '福建省宁德师青青草原收货点');
-INSERT INTO `users` VALUES (2, 'root', '123456', 'ilili', '1', '123', '123@', '123@', 'http://localhost:5001/public/upload/c0af6f3a2de70f86fadf265274ece52d', '福州市');
+INSERT INTO `users` VALUES (1, 'yating', '123456', 'ilili', '0', '19900000000', 'ilili@163.com', 'saxa1', 'http://localhost:5001/public/upload/014a0bf22bfb5bf4395b0931706b7742', '福建省宁德师青青草原收货点', '');
+INSERT INTO `users` VALUES (2, 'root', '123456', 'ilili', '1', '123', '123@', '123@', 'http://localhost:5001/public/upload/c0af6f3a2de70f86fadf265274ece52d', '福州市', '');
 
 SET FOREIGN_KEY_CHECKS = 1;

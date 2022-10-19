@@ -60,4 +60,8 @@ router.post('/selectaddress',require('../controller/shop').selectaddress)
 router.post('/addaddress',require('../controller/shop').addaddress)
 // 删除地址
 router.post('/deladdress',require('../controller/shop').deladdress)
+// 查询是否领取优惠券
+router.post('/selectprice',require('../controller/shop').selectprice)
+// 领取优惠券
+router.post('/addprice',require('../controller/shop').addprice)
 module.exports = router

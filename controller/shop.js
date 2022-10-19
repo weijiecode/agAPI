@@ -815,6 +815,64 @@ class Shop {
         }
     }
 
+    // 查询是否领取优惠券
+    async selectprice(request, resposne, next) {
+        let selectSql = 'select discount from users where id = ?'
+        let params = [
+            request.body.id
+        ]
+        try {
+            let result = await db.exec(selectSql, params)
+            // console.log(result[0])
+            if (result && result.length >= 1) {
+                resposne.json({
+                    code: 200,
+                    msg: '获取数据成功',
+                    data: result,
+                })
+            } else {
+                resposne.json({
+                    code: 201,
+                    msg: '获取数据失败'
+                })
+            }
+        } catch (error) {
+            resposne.json({
+                code: -201,
+                msg: '服务器异常',
+                error
+            })
+        }
+    }
+    // 领取优惠券
+    async addprice(request, resposne, next) {
+        let insertsql = 'update users set discount=? where id=?'
+        let params = [
+            request.body.discount,
+            request.body.id
+        ]
+        try {
+            let result = await db.exec(insertsql, params)
+            if (result && result.affectedRows >= 1) {
+                resposne.json({
+                    code: 200,
+                    msg: '添加成功'
+                })
+            } else {
+                resposne.json({
+                    code: 201,
+                    msg: '添加失败'
+                })
+            }
+        } catch (error) {
+            resposne.json({
+                code: -201,
+                msg: '服务器异常',
+                error
+            })
+        }
+    }
+
 
 }
 
